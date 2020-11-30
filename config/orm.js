@@ -10,7 +10,7 @@ function printQuestionMarks(num) {
   return arr.toString();
 }
 
-function objToSql(ob) {
+function objSql(ob) {
   var arr = [];
   for (var key in ob) {
     var value = ob[key];
@@ -26,7 +26,7 @@ function objToSql(ob) {
 
 const orm = {
   all: function(tableInput, cb) {
-    const queryString = "SELECT * FROM " + tableInput + ";";
+    const queryString = `SELECT * FROM  ${tableInput}`;
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
@@ -54,11 +54,11 @@ const orm = {
       cb(result);
     });
   },
-  update: function(table, objColVals, condition, cb) {
+  update: function(table, objVals, condition, cb) {
     const queryString = "UPDATE " + table;
 
     queryString += " SET ";
-    queryString += objToSql(objColVals);
+    queryString += objSql(objVals);
     queryString += " WHERE ";
     queryString += condition;
 
